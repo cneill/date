@@ -130,7 +130,7 @@ func (s String[T]) String() string {
 	return s.Time().Format(genericType.Format())
 }
 
-// UnmarshalJSON implements [json.Unmarshaler].
+// UnmarshalJSON implements [encoding/json.Unmarshaler].
 func (s *String[T]) UnmarshalJSON(input []byte) error {
 	var (
 		genericType T
@@ -147,12 +147,12 @@ func (s *String[T]) UnmarshalJSON(input []byte) error {
 	return nil
 }
 
-// MarshalJSON implements [json.Marshaler].
+// MarshalJSON implements [encoding/json.Marshaler].
 func (s String[T]) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + s.String() + `"`), nil
 }
 
-// EncodeValues implements [query.Encoder] (github.com/google/go-querystring/query)
+// EncodeValues implements [github.com/google/go-querystring/query.Encoder] (github.com/google/go-querystring/query)
 func (s String[T]) EncodeValues(key string, values *url.Values) error {
 	if values == nil {
 		values = &url.Values{}
