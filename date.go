@@ -152,7 +152,7 @@ func (s String[T]) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + s.String() + `"`), nil
 }
 
-// EncodeValues implements [github.com/google/go-querystring/query.Encoder] (github.com/google/go-querystring/query)
+// EncodeValues implements [github.com/google/go-querystring/query.Encoder].
 func (s String[T]) EncodeValues(key string, values *url.Values) error {
 	if values == nil {
 		values = &url.Values{}
