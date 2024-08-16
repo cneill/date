@@ -11,7 +11,7 @@ import (
 func TestStringJSON(t *testing.T) { //nolint:funlen // No sense splitting this up.
 	t.Parallel()
 
-	now := time.Date(2024, time.January, 1, 1, 0, 0, 0, time.UTC)
+	now := time.Date(2024, time.January, 1, 1, 0, 0, 1, time.UTC)
 
 	type testStruct struct {
 		ANSIC       date.String[date.ANSIC]       `json:"ansic"`
@@ -21,7 +21,7 @@ func TestStringJSON(t *testing.T) { //nolint:funlen // No sense splitting this u
 		RFC1123     date.String[date.RFC1123]     `json:"rfc_1123"`
 		RFC1123Z    date.String[date.RFC1123Z]    `json:"rfc_1123z"`
 		RFC3339     date.String[date.RFC3339]     `json:"rfc_3339"`
-		RFC3339Nano date.String[date.RFC3339Nano] `json:"rfc_3339Nano"`
+		RFC3339Nano date.String[date.RFC3339Nano] `json:"rfc_3339_nano"`
 		RFC822      date.String[date.RFC822]      `json:"rfc_822"`
 		RFC822Z     date.String[date.RFC822Z]     `json:"rfc_822z"`
 		RFC850      date.String[date.RFC850]      `json:"rfc_850"`
@@ -63,7 +63,7 @@ func TestStringJSON(t *testing.T) { //nolint:funlen // No sense splitting this u
   "rfc_1123": "Mon, 01 Jan 2024 01:00:00 UTC",
   "rfc_1123z": "Mon, 01 Jan 2024 01:00:00 +0000",
   "rfc_3339": "2024-01-01T01:00:00Z",
-  "rfc_3339Nano": "2024-01-01T01:00:00Z",
+  "rfc_3339_nano": "2024-01-01T01:00:00.000000001Z",
   "rfc_822": "01 Jan 24 01:00 UTC",
   "rfc_822z": "01 Jan 24 01:00 +0000",
   "rfc_850": "Monday, 01-Jan-24 01:00:00 UTC",
@@ -71,7 +71,7 @@ func TestStringJSON(t *testing.T) { //nolint:funlen // No sense splitting this u
   "stamp": "Jan  1 01:00:00",
   "stamp_micro": "Jan  1 01:00:00.000000",
   "stamp_milli": "Jan  1 01:00:00.000",
-  "stamp_nano": "Jan  1 01:00:00.000000000",
+  "stamp_nano": "Jan  1 01:00:00.000000001",
   "time_only": "01:00:00",
   "unix_date": "Mon Jan  1 01:00:00 UTC 2024"
 }`
