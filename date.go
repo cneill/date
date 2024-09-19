@@ -127,6 +127,11 @@ func (s String[T]) Time() time.Time { return time.Time(s) }
 // String implements [fmt.Stringer].
 func (s String[T]) String() string {
 	var genericType T
+
+	if s.Time().IsZero() {
+		return ""
+	}
+
 	return s.Time().Format(genericType.Format())
 }
 
@@ -136,6 +141,10 @@ func (s *String[T]) UnmarshalJSON(input []byte) error {
 		genericType T
 		cleaned     = strings.Trim(string(input), `"`)
 	)
+
+	if cleaned == "" {
+		return nil
+	}
 
 	parsed, err := time.Parse(genericType.Format(), cleaned)
 	if err != nil {
