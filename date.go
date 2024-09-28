@@ -3,6 +3,7 @@ package date
 import (
 	"fmt"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -170,6 +171,27 @@ func (s String[T]) EncodeValues(key string, values *url.Values) error {
 	}
 
 	values.Add(key, s.String())
+
+	return nil
+}
+
+// Unix handles integer timestamps with seconds since the Unix epoch.
+type Unix time.Time
+
+func (u Unix) Time() time.Time { return time.Time(u) }
+
+// UnmarshalJSON implements [encoding/json.Unmarshaler]
+func (u *Unix) UnmarshalJSON(input []byte) error {
+	cleaned := strings.Trim(string(input), `"`)
+
+	seconds, err := strconv.ParseInt(cleaned, 10, 64)
+	if err != nil {
+		return fmt.Errorf("failed to parse input as int: %w", err)
+	}
+
+	unix := time.Unix(seconds, 0).UTC()
+
+	*u = Unix(unix)
 
 	return nil
 }

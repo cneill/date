@@ -99,3 +99,19 @@ func TestStringJSON(t *testing.T) { //nolint:funlen // No sense splitting this u
 		t.Errorf("got invalid JSON:\n%s\n", testString)
 	}
 }
+
+func TestUnixJSON(t *testing.T) {
+	t.Parallel()
+
+	input := "1727558400"
+	unix := date.Unix{}
+	normalTime := time.Date(2024, time.September, 28, 21, 20, 0, 0, time.UTC)
+
+	if err := json.Unmarshal([]byte(input), &unix); err != nil {
+		t.Fatalf("failed to unmarshal Unix timestmp: %v", err)
+	}
+
+	if !unix.Time().Equal(normalTime) {
+		t.Errorf("parsed timestamp did not match expected value: got %q, expecting %q", unix.Time(), normalTime)
+	}
+}
