@@ -76,49 +76,49 @@ func (r RFC3339Nano) Format() string                        { return time.RFC333
 type Kitchen string
 
 func StringKitchen(input time.Time) String[Kitchen] { return String[Kitchen](input) }
-func (r Kitchen) Format() string                    { return time.Kitchen }
+func (k Kitchen) Format() string                    { return time.Kitchen }
 
 // Stamp = Jan _2 15:04:05
 type Stamp string
 
 func StringStamp(input time.Time) String[Stamp] { return String[Stamp](input) }
-func (r Stamp) Format() string                  { return time.Stamp }
+func (s Stamp) Format() string                  { return time.Stamp }
 
 // StampMilli = Jan _2 15:04:05.000
 type StampMilli string
 
 func StringStampMilli(input time.Time) String[StampMilli] { return String[StampMilli](input) }
-func (r StampMilli) Format() string                       { return time.StampMilli }
+func (s StampMilli) Format() string                       { return time.StampMilli }
 
 // StampMicro = Jan _2 15:04:05.000000
 type StampMicro string
 
 func StringStampMicro(input time.Time) String[StampMicro] { return String[StampMicro](input) }
-func (r StampMicro) Format() string                       { return time.StampMicro }
+func (s StampMicro) Format() string                       { return time.StampMicro }
 
 // StampNano = Jan _2 15:04:05.000000000
 type StampNano string
 
 func StringStampNano(input time.Time) String[StampNano] { return String[StampNano](input) }
-func (r StampNano) Format() string                      { return time.StampNano }
+func (s StampNano) Format() string                      { return time.StampNano }
 
 // DateTime = 2006-01-02 15:04:05
 type DateTime string //nolint:revive
 
 func StringDateTime(input time.Time) String[DateTime] { return String[DateTime](input) }
-func (r DateTime) Format() string                     { return time.DateTime }
+func (d DateTime) Format() string                     { return time.DateTime }
 
 // DateOnly = 2006-01-02
 type DateOnly string //nolint:revive
 
 func StringDateOnly(input time.Time) String[DateOnly] { return String[DateOnly](input) }
-func (r DateOnly) Format() string                     { return time.DateOnly }
+func (d DateOnly) Format() string                     { return time.DateOnly }
 
 // TimeOnly = 15:04:05
 type TimeOnly string
 
 func StringTimeOnly(input time.Time) String[TimeOnly] { return String[TimeOnly](input) }
-func (r TimeOnly) Format() string                     { return time.TimeOnly }
+func (t TimeOnly) Format() string                     { return time.TimeOnly }
 
 type String[T StringFormat] time.Time
 
