@@ -175,7 +175,7 @@ func (s String[T]) EncodeValues(key string, values *url.Values) error {
 	return nil
 }
 
-// Unix handles integer timestamps with seconds since the Unix epoch.
+// Unix handles integer timestamps with seconds since the Unix epoch, set to UTC.
 type Unix time.Time
 
 func (u Unix) Time() time.Time { return time.Time(u) }
@@ -186,12 +186,30 @@ func (u *Unix) UnmarshalJSON(input []byte) error {
 
 	seconds, err := strconv.ParseInt(cleaned, 10, 64)
 	if err != nil {
-		return fmt.Errorf("failed to parse input as int: %w", err)
+		return fmt.Errorf("failed to parse input as int number of seconds: %w", err)
 	}
 
 	unix := time.Unix(seconds, 0).UTC()
-
 	*u = Unix(unix)
+
+	return nil
+}
+
+type UnixMilli time.Time
+
+func (u UnixMilli) Time() time.Time { return time.Time(u) }
+
+func (u *UnixMilli) UnmarshalJSON(input []byte) error {
+	cleaned := strings.Trim(string(input), `"`)
+
+	milliseconds, err := strconv.ParseInt(cleaned, 10, 64)
+	if err != nil {
+		return fmt.Errorf("failed to parse input as int number of milliseconds: %w", err)
+	}
+
+	unix := time.UnixMilli(milliseconds).UTC()
+
+	*u = UnixMilli(unix)
 
 	return nil
 }
